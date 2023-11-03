@@ -295,6 +295,10 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             this.hourlyincome.transaction(-entry["Cost"])
         elif "SellExplorationData" in entry["event"]:
             this.hourlyincome.transaction(entry["TotalEarnings"])
+        elif "SellOrganicData" in entry["event"]:
+            for data in entry["BioData"]:
+                this.hourlyincome.transaction(data["Value"])
+                this.hourlyincome.transaction(data["Bonus"])
         # ! missions/community goals/search and rescue
         elif "CommunityGoalReward" in entry["event"]:
             this.hourlyincome.transaction(entry["Reward"])
